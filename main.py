@@ -33,7 +33,7 @@ class Base(DeclarativeBase):
     pass
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('BD_URI')
 db = SQLAlchemy(model_class=Base)
 db.init_app(app=app)
 
@@ -133,7 +133,7 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         pw_hash = bcrypt.generate_password_hash(password=form.password.data, rounds=8)
-        new_user = User(name=form.name.data, email=form.email.data, password=pw_hash)
+        new_user = User(name=form.username.data, email=form.email.data, password=pw_hash)
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user)
@@ -153,7 +153,7 @@ def login():
             if bcrypt.check_password_hash(pw_hash=user.password, password=form.password.data):
                 print('password matched')
                 login_user(user)
-                print(current_user.name)
+                print(current_user.username)
                 flash('You have been logged in!')
                 return redirect(url_for('get_all_posts'))
             else:
@@ -206,7 +206,7 @@ def add_new_post():
         new_post = Post(
             title=form.title.data,
             subtitle=form.subtitle.data,
-            body=form.body.data,
+            body=form.content.data,
             img_url=form.img_url.data,
             author=current_user,
             date=date.today().strftime("%B %d, %Y")
@@ -233,7 +233,7 @@ def edit_post(post_id):
         post.subtitle = edit_form.subtitle.data
         post.img_url = edit_form.img_url.data
         post.author = current_user
-        post.body = edit_form.body.data
+        post.body = edit_form.content.data
         db.session.commit()
         return redirect(url_for("show_post", post_id=post.id))
     return render_template("make-post.html", form=edit_form, is_edit=True)
