@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% from 'bootstrap5/form.html' import render_form %}
-{% block title %}{{ header_title }}{% endblock %}
+{% block title %}
+  {% if is_edit: %}
+    {{ header_title }}
+  {% else %}
+    Create A Blog Post
+  {% endif %}
+{% endblock %}
 {% block content %}
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('../static/assets/img/edit-bg.jpg')">
@@ -8,16 +14,28 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
         <div class="page-heading">
-          <h1>{{ header_title }}</h1>
-          <span class="subheading">{{ header_subtitle }}</span>
+          <h1>
+            {% if is_edit: %}
+              {{ header_title }}
+            {% else %}
+              New Blog Post
+            {% endif %}
+          </h1>
           <span class="subheading">
-            {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                {% for msg in messages %}
-                  <p class="flash">{{ msg }}</p>
-                {% endfor %}
-              {% endif %}
-            {% endwith %}
+            {% if is_edit: %}
+              {{ header_subtitle }}
+            {% else %}
+              You're going to make a great blog post!
+            {% endif %}
+          </span>
+          <span class="subheading">
+<!--            {% with messages = get_flashed_messages() %}-->
+<!--              {% if messages %}-->
+<!--                {% for msg in messages %}-->
+<!--                  <p class="flash">{{ msg }}</p>-->
+<!--                {% endfor %}-->
+<!--              {% endif %}-->
+<!--            {% endwith %}-->
           </span>
         </div>
       </div>
