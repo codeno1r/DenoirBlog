@@ -14,7 +14,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Integer, Text    # String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user, current_user
-from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
 
 # Flask WTForms and CKEditor for Forms
 from flask_wtf import FlaskForm
@@ -136,7 +136,7 @@ def year_now():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        pw_hash = bcrypt.generate_password_hash(password=form.password.data, rounds=8)
+        pw_hash = generate_password_hash(password=form.password.data, rounds=8).decode('utf-8')
         new_user = User(username=form.username.data, email=form.email.data, password=pw_hash)
         db.session.add(new_user)
         db.session.commit()
@@ -154,7 +154,7 @@ def login():
         print('Finding user')
         if user:
             print('user found')
-            if bcrypt.check_password_hash(pw_hash=user.password, password=form.password.data):
+            if check_password_hash(pw_hash=user.password, password=form.password.data):
                 print('password matched')
                 login_user(user)
                 print(current_user.username)
