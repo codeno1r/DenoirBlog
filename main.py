@@ -6,7 +6,7 @@ from datetime import date, datetime
 # Flask App, Bootstrap and Gravatar for the front-end
 from flask import Flask, render_template, redirect, url_for, flash, abort
 from flask_bootstrap import Bootstrap5
-# from flask_gravatar import Gravatar
+from flask_gravatar import Gravatar
 
 # Flask SQLAlchemy, Login and Bcrypt for Authentication
 from flask_migrate import Migrate
@@ -28,7 +28,7 @@ DATABASE_URI = os.environ.get('DATABASE_URI')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = FLASK_SECRET_KEY
 bootstrap = Bootstrap5(app)
-# gravatar = Gravatar(app=app)
+gravatar = Gravatar(app=app)
 migrate = Migrate(app)
 
 
