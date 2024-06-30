@@ -210,7 +210,7 @@ def add_new_post():
         new_post = Post(
             title=form.title.data,
             subtitle=form.subtitle.data,
-            body=form.content.data,
+            content=form.content.data,
             img_url=form.img_url.data,
             author=current_user,
             date=date.today().strftime("%B %d, %Y")
@@ -230,14 +230,14 @@ def edit_post(post_id):
         subtitle=post.subtitle,
         img_url=post.img_url,
         author=post.author,
-        body=post.body
+        content=post.content
     )
     if edit_form.validate_on_submit():
         post.title = edit_form.title.data
         post.subtitle = edit_form.subtitle.data
         post.img_url = edit_form.img_url.data
         post.author = current_user
-        post.body = edit_form.content.data
+        post.content = edit_form.content.data
         db.session.commit()
         return redirect(url_for("show_post", post_id=post.id))
     return render_template("make-post.html", form=edit_form, is_edit=True)
@@ -263,4 +263,4 @@ def contact():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
