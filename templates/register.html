@@ -22,7 +22,7 @@
         <!--TODO: render your registration form here-->
         <form action="#" method="post">
           {{ form.csrf_token() }}
-          {{ form.name(type='text', class='form-control', placeholder='Name') }} <br/>
+          {{ form.username(type='text', class='form-control', placeholder='Username') }} <br/>
           {{ form.email(type='email', class='form-control', placeholder='Email') }} <br/>
           {{ form.password(type='password', class='form-control', placeholder='Password') }} <br/>
           {{ form.submit(type='submit', id="submitButton", class='btn btn-success text-uppercase') }}
