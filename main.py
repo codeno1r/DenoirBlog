@@ -1,6 +1,5 @@
 # Import OS and DotEnv and DATETIME
 import os
-import dotenv
 from functools import wraps
 from datetime import date, datetime
 
@@ -23,8 +22,6 @@ from wtforms import StringField, EmailField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditorField
 
-dotenv.load_dotenv('.env')
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 bootstrap = Bootstrap5(app=app)
@@ -36,7 +33,7 @@ class Base(DeclarativeBase):
     pass
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog_database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI')
 db = SQLAlchemy(model_class=Base)
 db.init_app(app=app)
 
