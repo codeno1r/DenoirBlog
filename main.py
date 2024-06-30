@@ -49,8 +49,8 @@ login_manager.login_view = 'login'
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    username: Mapped[str] = mapped_column(String(30), unique=True, nullable=False)
-    email: Mapped[str] = mapped_column(String(100), nullable=False)
+    username: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)
+    email: Mapped[str] = mapped_column(String(250), nullable=False)
     password: Mapped[str] = mapped_column(String(250), nullable=False)
     posts = relationship("Post", back_populates="author")
     comments = relationship("Comment", back_populates="user")
@@ -59,11 +59,11 @@ class User(db.Model, UserMixin):
 class Post(db.Model):
     __tablename__ = 'posts'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    title: Mapped[str] = mapped_column(String(100), nullable=False)
-    subtitle: Mapped[str] = mapped_column(String(100), nullable=False)
+    title: Mapped[str] = mapped_column(String(250), nullable=False)
+    subtitle: Mapped[str] = mapped_column(String(250), nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
     img_url: Mapped[str] = mapped_column(String(250), nullable=False)
-    date: Mapped[str] = mapped_column(String(100), nullable=False)
+    date: Mapped[str] = mapped_column(String(250), nullable=False)
     author_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("users.id"))
     author = relationship("User", back_populates="posts")
     comments = relationship("Comment", back_populates="post")
@@ -73,7 +73,7 @@ class Comment(db.Model):
     __tablename__ = 'comments'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     body: Mapped[str] = mapped_column(Text, nullable=False)
-    datetime: Mapped[str] = mapped_column(String(30), nullable=False)  # date.today().strftime("%B %d, %Y %I:%M:%S")
+    datetime: Mapped[str] = mapped_column(String(250), nullable=False)  # date.today().strftime("%B %d, %Y %I:%M:%S")
     user_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("users.id"))
     user = relationship("User", back_populates="comments")
     post_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("posts.id"))
