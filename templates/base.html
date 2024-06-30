@@ -36,9 +36,9 @@
             <li class="nav-item">
               <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('about') }}">About</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('contact') }}">Contact</a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('contact') }}">Contact</a>-->
+<!--            </li>-->
             {% if not current_user.is_authenticated: %}
             <li class="nav-item">
               <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('login') }}">Login</a>
@@ -67,7 +67,7 @@
                   <div class="col-md-10 col-lg-8 col-xl-7">
                       <ul class="list-inline text-center">
                           <li class="list-inline-item">
-                              <a href="#!">
+                              <a href="https://x.com/GreedDBD">
                                   <span class="fa-stack fa-lg">
                                       <i class="fas fa-circle fa-stack-2x"></i>
                                       <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
@@ -75,7 +75,7 @@
                               </a>
                           </li>
                           <li class="list-inline-item">
-                              <a href="#!">
+                              <a href="https://www.facebook.com/gvarr/">
                                   <span class="fa-stack fa-lg">
                                       <i class="fas fa-circle fa-stack-2x"></i>
                                       <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
@@ -83,7 +83,7 @@
                               </a>
                           </li>
                           <li class="list-inline-item">
-                              <a href="#!">
+                              <a href="https://github.com/DenoirWorks">
                                   <span class="fa-stack fa-lg">
                                       <i class="fas fa-circle fa-stack-2x"></i>
                                       <i class="fab fa-github fa-stack-1x fa-inverse"></i>
@@ -91,7 +91,7 @@
                               </a>
                           </li>
                       </ul>
-                      <div class="small text-center text-muted fst-italic">Copyright &copy; Noir {{ year_now }}</div>
+                      <div class="small text-center text-muted fst-italic">Copyright &copy; Denoir {{ year_now }}</div>
                   </div>
               </div>
           </div>
