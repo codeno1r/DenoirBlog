@@ -59,10 +59,10 @@ class User(db.Model, UserMixin):
 class Post(db.Model):
     __tablename__ = 'posts'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    title: Mapped[str] = mapped_column(String(250), nullable=False)
-    subtitle: Mapped[str] = mapped_column(String(250), nullable=False)
+    title: Mapped[str] = mapped_column(Text, nullable=False)
+    subtitle: Mapped[str] = mapped_column(Text, nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
-    img_url: Mapped[str] = mapped_column(String(250), nullable=False)
+    img_url: Mapped[str] = mapped_column(Text, nullable=False)
     date: Mapped[str] = mapped_column(String(250), nullable=False)
     author_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("users.id"))
     author = relationship("User", back_populates="posts")
