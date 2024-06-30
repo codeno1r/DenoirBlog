@@ -11,7 +11,7 @@ from flask_gravatar import Gravatar
 # Flask SQLAlchemy, Login and Bcrypt for Authentication
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Integer, Text    # String
+from sqlalchemy import Integer, Text, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user, current_user
 from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
@@ -49,9 +49,9 @@ login_manager.login_view = 'login'
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    username: Mapped[str] = mapped_column(Text, unique=True, nullable=False)
-    email: Mapped[str] = mapped_column(Text, nullable=False)
-    password: Mapped[str] = mapped_column(Text, nullable=False)
+    username: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    email: Mapped[str] = mapped_column(String, nullable=False)
+    password: Mapped[str] = mapped_column(String, nullable=False)
     posts = relationship("Post", back_populates="author")
     comments = relationship("Comment", back_populates="user")
 
@@ -63,7 +63,7 @@ class Post(db.Model):
     subtitle: Mapped[str] = mapped_column(Text, nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
     img_url: Mapped[str] = mapped_column(Text, nullable=False)
-    date: Mapped[str] = mapped_column(Text, nullable=False)
+    date: Mapped[str] = mapped_column(String, nullable=False)
     author_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("users.id"))
     author = relationship("User", back_populates="posts")
     comments = relationship("Comment", back_populates="post")
@@ -73,7 +73,7 @@ class Comment(db.Model):
     __tablename__ = 'comments'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     body: Mapped[str] = mapped_column(Text, nullable=False)
-    datetime: Mapped[str] = mapped_column(Text, nullable=False)  # date.today().strftime("%B %d, %Y %I:%M:%S")
+    datetime: Mapped[str] = mapped_column(String, nullable=False)  # date.today().strftime("%B %d, %Y %I:%M:%S")
     user_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("users.id"))
     user = relationship("User", back_populates="comments")
     post_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("posts.id"))
