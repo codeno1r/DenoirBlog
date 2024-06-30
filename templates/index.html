@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Noir{% endblock %}
+{% block title %}Denoir{% endblock %}
 {% block content %}
 <header class="masthead" style="background-image: url('../static/assets/img/home-bg.jpg')">
   <div class="container position-relative px-4 px-lg-5">
@@ -12,7 +12,7 @@
             {% with messages = get_flashed_messages() %}
               {% if messages %}
                 {% for msg in messages %}
-                  {{ msg }}
+                  <p>{{ msg }}</p>
                 {% endfor %}
               {% endif %}
             {% endwith %}
@@ -38,7 +38,7 @@
           Posted by
           <a href="#">{{post.author.username}}</a>
           on {{post.date}}
-          {% if current_user.is_authenticated and current_user == post.author: %}
+          {% if current_user.is_authenticated and current_user.username == post.author: %}
           <a href="{{ url_for('delete_post', post_id=post.id) }}">✘</a>
           {% endif %}
         </p>
