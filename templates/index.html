@@ -38,7 +38,7 @@
           Posted by
           <a href="#">{{post.author.username}}</a>
           on {{post.date}}
-          {% if current_user.is_authenticated and current_user.username == post.author: %}
+          {% if current_user.is_authenticated and current_user == post.author: %}
           <a href="{{ url_for('delete_post', post_id=post.id) }}">✘</a>
           {% endif %}
         </p>
