@@ -22,22 +22,25 @@ from wtforms import StringField, EmailField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditorField
 
+FLASK_SECRET_KEY = os.environ.get('FLASK_SECRET_KEY')
+DATABASE_URI = os.environ.get('DATABASE_URI')
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-bootstrap = Bootstrap5(app=app)
+app.config['SECRET_KEY'] = FLASK_SECRET_KEY
+bootstrap = Bootstrap5(app)
 # gravatar = Gravatar(app=app)
-migrate = Migrate(app=app)
+migrate = Migrate(app)
 
 
 class Base(DeclarativeBase):
     pass
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('BD_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 db = SQLAlchemy(model_class=Base)
-db.init_app(app=app)
+db.init_app(app)
 
-bcrypt = Bcrypt(app=app)
+bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
