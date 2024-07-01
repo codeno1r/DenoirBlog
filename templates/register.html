@@ -20,13 +20,13 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <!--TODO: render your registration form here-->
         <form action="#" method="post">
-          {{ form.csrf_token() }}
-          {{ form.username(type='text', class='form-control', placeholder='Username') }} <br/>
-          {{ form.email(type='email', class='form-control', placeholder='Email') }} <br/>
-          {{ form.password(type='password', class='form-control', placeholder='Password') }} <br/>
-          {{ form.submit(type='submit', id="submitButton", class='btn btn-success text-uppercase') }}
+          {{ render_form(form) }}
+<!--          {{ form.csrf_token() }}-->
+<!--          {{ form.username(type='text', class='form-control', placeholder='Username') }} <br/>-->
+<!--          {{ form.email(type='email', class='form-control', placeholder='Email') }} <br/>-->
+<!--          {{ form.password(type='password', class='form-control', placeholder='Password') }} <br/>-->
+<!--          {{ form.submit(type='submit', id="submitButton", class='btn btn-success text-uppercase') }}-->
         </form>
       </div>
     </div>

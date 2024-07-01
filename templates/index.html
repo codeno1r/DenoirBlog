@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Denoir{% endblock %}
+{% block title %}Denoir: A Collaborative Blog For All{% endblock %}
 {% block content %}
 <header class="masthead" style="background-image: url('../static/assets/img/home-bg.jpg')">
   <div class="container position-relative px-4 px-lg-5">
@@ -39,7 +39,7 @@
           <a href="#">{{post.author.username}}</a>
           on {{post.date}}
           {% if current_user.is_authenticated and current_user == post.author: %}
-          <a href="{{ url_for('delete_post', post_id=post.id) }}">✘</a>
+            <a href="{{ url_for('delete_post', post_id=post.id) }}">✘</a>
           {% endif %}
         </p>
       </div>

@@ -28,7 +28,7 @@ DATABASE_URI = os.environ.get('DATABASE_URI')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = FLASK_SECRET_KEY
 bootstrap = Bootstrap5(app)
-gravatar = Gravatar(app=app)
+gravatar = Gravatar(app)
 migrate = Migrate(app)
 
 
@@ -40,7 +40,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
-bcrypt = Bcrypt(app)
+Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -54,6 +54,11 @@ class User(db.Model, UserMixin):
     password: Mapped[str] = mapped_column(String, nullable=False)
     posts = relationship("Post", back_populates="author")
     comments = relationship("Comment", back_populates="user")
+
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.password = password
 
 
 class Post(db.Model):
@@ -243,13 +248,22 @@ def edit_post(post_id):
     return render_template("make-post.html", form=edit_form, is_edit=True)
 
 
-@app.route("/delete/<int:post_id>")
+@app.route("/delete-post/<int:post_id>")
 @login_required
 def delete_post(post_id):
     post_to_delete = db.get_or_404(Post, post_id)
     db.session.delete(post_to_delete)
     db.session.commit()
     return redirect(url_for('get_all_posts'))
+
+
+@app.route("/delete-comment/<int:comment_id>")
+@admin_only
+def delete_comment(comment_id):
+    comment_to_delete = db.get_or_404(Comment, comment_id)
+    db.session.delete(comment_to_delete)
+    db.session.commit()
+    return redirect(url_for('show_post'))
 
 
 @app.route("/about")
