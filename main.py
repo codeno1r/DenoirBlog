@@ -248,7 +248,7 @@ def edit_post(post_id):
     return render_template("make-post.html", form=edit_form, is_edit=True)
 
 
-@app.route("/delete-post/<int:post_id>")
+@app.route("/delete/<int:post_id>")
 @login_required
 def delete_post(post_id):
     post_to_delete = db.get_or_404(Post, post_id)
@@ -257,13 +257,13 @@ def delete_post(post_id):
     return redirect(url_for('get_all_posts'))
 
 
-@app.route("/delete-comment/<int:comment_id>")
+@app.route("/delete/<int:post_id>/<int:comment_id>")
 @admin_only
-def delete_comment(comment_id):
+def delete_comment(post_id, comment_id):
     comment_to_delete = db.get_or_404(Comment, comment_id)
     db.session.delete(comment_to_delete)
     db.session.commit()
-    return redirect(url_for('show_post'))
+    return redirect(url_for('show_post', post_id=post_id))
 
 
 @app.route("/about")
